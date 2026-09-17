@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entre em Contato</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div id="form">
+        <form method="post" action="recibo.php" class="box">
+            <h2>Entre em Contato</h2>
+            
+            <div class="box-group">
+                <label for="name">Nome</label>
+                <input type="text" id="name" name="name" placeholder="Felipe Monteiro">
+            </div>
+
+            <div class="box-group">
+                <label for="phone">Telefone</label>
+                <input type="number" name="phone" id="phone" placeholder="(XX) X XXXX-XXXX"><br>
+            </div>
+
+            <div class="box-group">
+                <label for="email">E-mail</label>
+                <input type="email" name="email" id="email" placeholder="usuario@email.com"><br>
+            </div>
+
+            <div class="box-group">
+                <label for="message">Mensagem</label>
+                <textarea name="message" id="message" placeholder="Digite sua mensagem..."></textarea>
+            </div>
+
+            <button class="btn" type="submit">Enviar</button>
+        </form>
+    </div>
+</body>
+</html>
