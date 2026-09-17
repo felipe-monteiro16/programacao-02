@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agendamento</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+
+
+<body>
+    <nav>
+        <img src="images/logo.fw.png" alt="logo-clinica">
+        <div>
+            <a href="index.html">Início</a>
+            <a href="sobre.html">Sobre a Clínica</a>
+            <a href="agendamento.html">Agendamento</a>
+            <a href="contato.html">Contato</a>
+        </div>
+    </nav> 
+
+    <section class="topo-site">
+        <div>
+            <h1>Clínica Odontológica Referência</h1>
+            <sub>Odontologia geral, estética e ortodontia</sub>
+        </div>
+        <img src="images/capa.png" alt="capa-pagina">
+    </section>
+
+    <section class="conteudo">
+        <h2>AGENDAMENTO</h2>
+        <form action="">
+            <label for="nome">Nome completo:</label>
+            <input type="text" id="nome" name="nome" required>
+        
+            <label for="email">E-mail:</label>
+            <input type="text" id="email" name="email" required>
+
+            <label for="telefone">Telefone:</label>
+            <input type="text" id="telefone" name="telefone" required>
+
+            <label for="preferencia">Prefere ser atendido:</label>
+            <select name="preferencia" id="preferencia">
+                <option value="1">Na parte da manhã</option>
+                <option value="2">Na parte da tarde</option>
+                <option value="3">Tanto faz</option>
+            </select>
+
+            <input type="submit" value="Solicitar agendamento">
+        </form>
+    </section>
+    
+    <footer>
+        <p>Minha Clínica 2026</p>
+    </footer>
+</body>
+</html>
