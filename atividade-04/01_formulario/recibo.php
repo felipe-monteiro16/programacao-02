@@ -28,7 +28,7 @@
         </div>
         <p>Mensagem enviada no dia <?php print($data_atual . ", às " . $hora_atual) ?></p>
 
-        <a href="/index.html">Voltar à tela inicial</a>
+        <a href="../index.html">Voltar ao menu anterior</a>
     </div>
 </body>
 </html>
