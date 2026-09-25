@@ -1,0 +1,94 @@
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color:rgba(236, 236, 253, 0.592);
+    --cor-tema: rgba(26, 44, 184, 0.802);
+}
+
+
+h2 {
+    font-family: 'Lato', 'Courier New', Courier, monospace;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 300;
+    text-decoration: none;
+    font-size: 38px;
+
+    color: var(--cor-tema);
+    margin-bottom: 50px;
+}
+
+
+.btnCadastrar {
+    align-items: center;
+    margin: 20px auto 10px auto;
+    width: 100%;
+    height: 40px;
+    border-radius: 2px;
+    background-color: var(--cor-tema);
+    border: 0px solid white;
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+}
+.btnCadastrar:hover {
+    background-color: rgba(19, 33, 141, 0.802);
+}
+
+.btnCadastrar:active {
+  transform: scale(0.985);
+}
+
+.form-box {
+    background-color: rgb(247, 247, 253);
+    width: 500px;
+    height: auto;
+    border-radius: 0px;
+    padding: 50px;
+    border: 8px solid var(--cor-tema);
+}
+
+.form-items {
+    display: grid;
+    margin: 0 30px
+
+}
+
+.form-items label {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: #777;
+    margin-bottom: 4px;
+}
+
+.campo {
+    background-color: rgb(247, 247, 253);
+
+    padding: 12px 10px;
+    border-radius: 0px;
+    border: 2.5px solid rgb(192, 192, 192);
+    margin-bottom: 20px;
+    border-radius: 2px;
+
+}
+
+.campo:focus {
+    border-color: rgb(108, 116, 177);
+    outline: none;
+}
+
+.input-label:focus-within label {
+    color: rgb(108, 116, 177);
+}
+
+.input-label {
+    display: flex;
+    flex-direction: column;
+}
