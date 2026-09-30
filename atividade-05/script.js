@@ -3,13 +3,11 @@ function cadastrarAluno(event) {
     // Comando para impedir recarregamento da página ao finalizar form
     event.preventDefault();
 
-    const nome = form.nome.value;
-    const matricula = form.matricula.value;
-    const email = form.email.value;
-    const curso = form.curso.value;
-    const periodo = form.periodo.value;
-
-
+    let nome = form.nome.value;
+    let matricula = form.matricula.value;
+    let email = form.email.value;
+    let curso = form.curso.value;
+    let periodo = form.periodo.value;
 
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "cadastrar.php", true);
@@ -26,14 +24,22 @@ function cadastrarAluno(event) {
             let mensagem = document.getElementById("mensagem");
             if (xhr.status == 200) {
                 mensagem.style.color = "green";
+                form.reset();
             } else {
                 mensagem.style.color = "red";
             }    
             mensagem.innerHTML = xhr.responseText;
         }
     }
+    form.addEventListener("focusin", function() {
+        if (xhr.status == 200) {
+            let mensagem = document.getElementById("mensagem");
+            mensagem.innerHTML = "";
+        }
+    });
     xhr.send(dados)
 }
 
 const form = document.getElementById("form-cadastro-aluno");
 form.addEventListener("submit", cadastrarAluno);
+

@@ -26,9 +26,9 @@ if (!empty($erros)) {
     exit;
 }
 
+$dados = $nome . "|" . $matricula . "|" . $email . "|" . $curso . "|" . $periodo . PHP_EOL;
+file_put_contents("alunos.txt", $dados, FILE_APPEND);
+
 http_response_code(200);
 echo "Aluno Cadastrado com Sucesso!";
-
-
-
 ?>
