@@ -25,18 +25,12 @@ h2 {
     margin-bottom: 50px;
 }
 
+/* ======= BOTÕES ===================================== */
 
 .btnCadastrar {
-    align-items: center;
-    margin: 20px auto 10px auto;
-    width: 100%;
-    height: 40px;
-    border-radius: 2px;
     background-color: var(--cor-tema);
     border: 0px solid white;
     color: white;
-    font-size: 15px;
-    font-weight: 600;
 }
 .btnCadastrar:hover {
     background-color: rgba(19, 33, 141, 0.802);
@@ -45,6 +39,39 @@ h2 {
 .btnCadastrar:active {
   transform: scale(0.985);
 }
+
+#btn-listar-alunos {
+    background-color: rgb(247, 247, 253);
+    border: 1px solid var(--cor-tema);
+    color: var(--cor-tema);
+    width: 200px;
+}
+
+#btn-listar-alunos:hover {
+    background-color: rgba(110, 115, 153, 0.147);
+}
+
+#btn-listar-alunos:active {
+  transform: scale(0.985);
+}
+
+
+.btn-2 {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0 10px 0;
+}
+
+.btn-2 * {
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 2px;
+}
+
+/* ======= FORMULÁRIO ===================================== */
 
 .form-box {
     background-color: rgb(247, 247, 253);
@@ -94,7 +121,7 @@ h2 {
 }
 
 #mensagem {
-    font-size: large;
+    font-size: medium;
     font-weight: 600;
     text-align: center;
     color: green;
