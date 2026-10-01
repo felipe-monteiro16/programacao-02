@@ -1,0 +1,3 @@
+Felipe|100070655|felipe@email.com|Engenharia de Sistemas|5
+João|1000983838|joao@email.com|Sistemas de Informação|4
+Ricardo|100093939|ricardo@email.com|Sistemas de Informação|4

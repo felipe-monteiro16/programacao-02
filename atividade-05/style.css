@@ -27,16 +27,16 @@ h2 {
 
 /* ======= BOTÕES ===================================== */
 
-.btnCadastrar {
+.btn-cadastrar {
     background-color: var(--cor-tema);
     border: 0px solid white;
     color: white;
 }
-.btnCadastrar:hover {
+.btn-cadastrar:hover {
     background-color: rgba(19, 33, 141, 0.802);
 }
 
-.btnCadastrar:active {
+.btn-cadastrar:active {
   transform: scale(0.985);
 }
 
@@ -56,13 +56,13 @@ h2 {
 }
 
 
-.btn-2 {
+.btn-duplo {
     display: flex;
     gap: 10px;
     margin: 20px 0 10px 0;
 }
 
-.btn-2 * {
+.btn-duplo * {
     align-items: center;
     width: 100%;
     height: 40px;
@@ -75,7 +75,7 @@ h2 {
 
 .form-box {
     background-color: rgb(247, 247, 253);
-    width: 500px;
+    width: 700px;
     height: auto;
     border-radius: 0px;
     padding: 50px;
@@ -128,4 +128,31 @@ h2 {
 
     padding: 0;
     margin-top: 20px;
+}
+
+/* ======= TABELA ============================================== */
+
+#tabela-alunos {
+    display: none;
+    margin: 30px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+
+}
+
+th, td {
+    border: 1px solid #ddd;
+    text-align: center;
+    padding: 10px;
+}
+
+th {
+    background-color: #4c5572;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
 }

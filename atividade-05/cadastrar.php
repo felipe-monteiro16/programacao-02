@@ -10,7 +10,7 @@ $erros = [];
 if (strlen($nome) < 3) {
     $erros[] = "O nome precisa ter no mínimo 3 caracteres.";
 }
-if (strlen(($matricula) < 5)) {
+if (strlen($matricula) < 5) {
     $erros[] = "A matrícula precisa ter no mínimo 5 caracteres.";
 }
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {

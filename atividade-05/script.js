@@ -23,6 +23,7 @@ function cadastrarAluno(event) {
         if (xhr.readyState == XMLHttpRequest.DONE) {
             let mensagem = document.getElementById("mensagem");
             if (xhr.status == 200) {
+                listarAlunos(false);
                 mensagem.style.color = "green";
                 form.reset();
             } else {
@@ -31,15 +32,51 @@ function cadastrarAluno(event) {
             mensagem.innerHTML = xhr.responseText;
         }
     }
-    form.addEventListener("focusin", function() {
-        if (xhr.status == 200) {
-            let mensagem = document.getElementById("mensagem");
-            mensagem.innerHTML = "";
-        }
-    });
     xhr.send(dados)
 }
 
-const form = document.getElementById("form-cadastro-aluno");
-form.addEventListener("submit", cadastrarAluno);
 
+function listarAlunos(discrete=false) {
+    
+    tabelaAlunos = document.getElementById("tabela-alunos");
+    if (tabelaAlunos.style.display === "block" && !discrete) {
+        tabelaAlunos.style.display = "none";
+        btnListarAlunos.innerText = "Listar Alunos";
+        return;
+    }
+    
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", "listar.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+            let tabelaAlunos = document.getElementById("tabela-alunos");
+            
+            if (xhr.status == 200 || xhr.status == 204) {
+                tabelaAlunos.innerHTML = xhr.responseText;
+
+                if(!discrete) {
+                    tabelaAlunos.style.display = "block";
+                    btnListarAlunos.innerText = "Ocultar Alunos";
+                }
+                
+            } else {
+                alert("Listagem de Alunos Falhou.")
+            }    
+        }
+    }
+    xhr.send();
+}
+
+const form = document.getElementById("form-cadastro-aluno");
+const btnListarAlunos = document.getElementById("btn-listar-alunos");
+
+btnListarAlunos.addEventListener("click", () => listarAlunos(discrete=false));
+form.addEventListener("submit", cadastrarAluno);
+form.addEventListener("focusin", function() {
+    if (xhr.status == 200) {
+        let mensagem = document.getElementById("mensagem");
+        mensagem.innerHTML = "";
+    }
+});
