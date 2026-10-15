@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro pessoal com AJAX</title>
+  <style>
+    :root { --azul:#2563eb; --texto:#1f2937; --borda:#d1d5db; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; padding:32px 16px; font-family:Arial,sans-serif; color:var(--texto); background:linear-gradient(135deg,#e0f2fe,#eef2ff); }
+    main { width:min(100%,820px); margin:auto; padding:32px; background:#fff; border-radius:16px; box-shadow:0 16px 40px rgba(30,64,175,.14); }
+    h1 { margin:0 0 8px; color:#1e40af; }
+    .introducao { margin:0 0 28px; color:#4b5563; line-height:1.5; }
+    fieldset { margin:0 0 24px; padding:22px; border:1px solid #dbeafe; border-radius:10px; }
+    legend { padding:0 8px; font-weight:bold; color:#1e40af; }
+    .grade { display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+    .campo-completo { grid-column:1 / -1; }
+    label { display:block; margin-bottom:6px; font-weight:bold; font-size:.9rem; }
+    input { width:100%; padding:11px 12px; border:1px solid var(--borda); border-radius:7px; font:inherit; }
+    input:focus { outline:3px solid #bfdbfe; border-color:var(--azul); }
+    input[readonly] { background:#f9fafb; }
+    .foto-area { display:flex; align-items:center; gap:18px; flex-wrap:wrap; }
+    .foto-area input { flex:1; min-width:220px; }
+    #preview { display:grid; place-items:center; width:112px; height:112px; overflow:hidden; color:#6b7280; background:#f3f4f6; border:2px dashed #9ca3af; border-radius:50%; font-size:.78rem; text-align:center; }
+    #preview img { width:100%; height:100%; object-fit:cover; }
+    .cep-linha { display:flex; gap:10px; }
+    .cep-linha input { max-width:190px; }
+    button { padding:11px 17px; border:0; border-radius:7px; color:#fff; background:var(--azul); cursor:pointer; font:inherit; font-weight:bold; }
+    button:hover { background:#1e40af; } button:disabled { cursor:wait; background:#93c5fd; }
+    #mensagem { min-height:24px; margin:-12px 0 16px; font-size:.92rem; font-weight:bold; }
+    .sucesso { color:#047857; } .erro { color:#b91c1c; } .carregando { color:#1d4ed8; }
+    .aviso { margin:0; color:#6b7280; font-size:.88rem; line-height:1.45; }
+    .palavra-linha { display:flex; gap:10px; }
+    #palavra-chave { flex:1; }
+    #lista-palavras { display:flex; flex-wrap:wrap; gap:8px; min-height:34px; margin-top:12px; }
+    .etiqueta { display:flex; align-items:center; gap:7px; padding:6px 8px 6px 10px; color:#1e3a8a; background:#dbeafe; border-radius:999px; font-size:.9rem; }
+    .remover-palavra { width:20px; height:20px; padding:0; border-radius:50%; background:#60a5fa; line-height:1; }
+    .remover-palavra:hover { background:#1d4ed8; }
+    @media (max-width:600px) { main { padding:22px 16px; } .grade { grid-template-columns:1fr; } .campo-completo { grid-column:auto; } }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Cadastro pessoal</h1>
+    <p class="introducao">Exemplo didático de requisições assíncronas com <code>XMLHttpRequest</code>. Nenhum dado deste formulário é enviado ou armazenado.</p>
+    <form id="formulario" novalidate>
+      <fieldset>
+        <legend>Dados pessoais</legend>
+        <div class="grade">
+          <div class="campo-completo"><label for="nome">Nome completo</label><input id="nome" name="nome" type="text" autocomplete="name" required></div>
+          <div><label for="email">E-mail</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+          <div><label for="telefone">Telefone</label><input id="telefone" name="telefone" type="tel" placeholder="(00) 00000-0000" autocomplete="tel" required></div>
+          <div class="campo-completo"><label for="foto">Foto de perfil</label><div class="foto-area"><input id="foto" name="foto" type="file" accept="image/*"><div id="preview" aria-live="polite">Prévia da foto</div></div></div>
+          <div class="campo-completo">
+            <label for="palavra-chave">Palavras-chave</label>
+            <div class="palavra-linha"><input id="palavra-chave" type="text" placeholder="Ex.: JavaScript"><button id="inserir-palavra" type="button">Inserir</button></div>
+            <div id="lista-palavras" aria-live="polite" aria-label="Palavras-chave inseridas"></div>
+            <input id="palavras-chave" name="palavras-chave" type="hidden">
+          </div>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Endereço</legend>
+        <div class="grade">
+          <div><label for="cep">CEP</label><div class="cep-linha"><input id="cep" name="cep" type="text" inputmode="numeric" maxlength="9" placeholder="00000-000" autocomplete="postal-code" required><button id="buscar-cep" type="button">Buscar</button></div></div>
+          <div></div>
+          <div class="campo-completo"><label for="logradouro">Logradouro</label><input id="logradouro" name="logradouro" type="text" readonly></div>
+          <div><label for="numero">Número</label><input id="numero" name="numero" type="text" inputmode="numeric"></div>
+          <div><label for="bairro">Bairro</label><input id="bairro" name="bairro" type="text" readonly></div>
+          <div><label for="cidade">Cidade</label><input id="cidade" name="cidade" type="text" readonly></div>
+          <div><label for="estado">Estado</label><input id="estado" name="estado" type="text" readonly></div>
+        </div>
+      </fieldset>
+      <p id="mensagem" aria-live="polite"></p>
+      <p class="aviso">Ao sair do campo CEP (ou clicar em Buscar), o JavaScript consulta o ViaCEP sem recarregar a página.</p>
+    </form>
+  </main>
+  <script>
+    const foto = document.getElementById('foto');
+    const preview = document.getElementById('preview');
+    const cep = document.getElementById('cep');
+    const botaoCep = document.getElementById('buscar-cep');
+    const mensagem = document.getElementById('mensagem');
+    const campoPalavra = document.getElementById('palavra-chave');
+    const listaPalavras = document.getElementById('lista-palavras');
+    const palavrasOcultas = document.getElementById('palavras-chave');
+    const palavras = [];
+
+    function mostrarMensagem(texto, tipo) { mensagem.textContent = texto; mensagem.className = tipo; }
+
+    function atualizarPalavras() {
+      listaPalavras.replaceChildren();
+      palavras.forEach(function (palavra) {
+        const etiqueta = document.createElement('span');
+        etiqueta.className = 'etiqueta';
+        etiqueta.append(document.createTextNode(palavra));
+        const remover = document.createElement('button');
+        remover.type = 'button';
+        remover.className = 'remover-palavra';
+        remover.textContent = '×';
+        remover.title = 'Remover ' + palavra;
+        remover.setAttribute('aria-label', 'Remover palavra-chave ' + palavra);
+        remover.addEventListener('click', function () {
+          palavras.splice(palavras.indexOf(palavra), 1);
+          atualizarPalavras();
+        });
+        etiqueta.append(remover);
+        listaPalavras.append(etiqueta);
+      });
+      // Mantém as palavras reunidas em um campo do formulário, caso ele seja usado futuramente.
+      palavrasOcultas.value = palavras.join(', ');
+    }
+
+    function inserirPalavra() {
+      const palavra = campoPalavra.value.trim();
+      if (!palavra) { campoPalavra.focus(); return; }
+      if (palavras.some(item => item.toLocaleLowerCase() === palavra.toLocaleLowerCase())) {
+        campoPalavra.select();
+        mostrarMensagem('Esta palavra-chave já foi inserida.', 'erro');
+        return;
+      }
+      palavras.push(palavra);
+      atualizarPalavras();
+      campoPalavra.value = '';
+      campoPalavra.focus();
+      mostrarMensagem('Palavra-chave inserida!', 'sucesso');
+    }
+
+    // XMLHttpRequest obtém o blob da imagem escolhida antes de exibi-la na prévia.
+    foto.addEventListener('change', function () {
+      const arquivo = this.files[0];
+      if (!arquivo) return;
+      if (!arquivo.type.startsWith('image/')) { preview.textContent = 'Selecione uma imagem válida.'; return; }
+      const urlTemporaria = URL.createObjectURL(arquivo);
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', urlTemporaria, true);
+      xhr.responseType = 'blob';
+      xhr.onload = function () {
+        URL.revokeObjectURL(urlTemporaria);
+        if (xhr.status === 200 || xhr.status === 0) {
+          const imagem = document.createElement('img');
+          imagem.src = URL.createObjectURL(xhr.response);
+          imagem.alt = 'Prévia da foto de perfil selecionada';
+          preview.replaceChildren(imagem);
+        } else preview.textContent = 'Não foi possível carregar a imagem.';
+      };
+      xhr.onerror = function () { URL.revokeObjectURL(urlTemporaria); preview.textContent = 'Erro ao carregar a imagem.'; };
+      xhr.send();
+    });
+
+    cep.addEventListener('input', function () { this.value = this.value.replace(/\D/g, '').replace(/(\d{5})(\d)/, '$1-$2'); });
+    function limparEndereco() { ['logradouro','bairro','cidade','estado'].forEach(id => document.getElementById(id).value = ''); }
+    function buscarCep() {
+      const cepLimpo = cep.value.replace(/\D/g, '');
+      limparEndereco();
+      if (cepLimpo.length !== 8) { mostrarMensagem('Informe um CEP com 8 dígitos.', 'erro'); cep.focus(); return; }
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', 'https://viacep.com.br/ws/' + cepLimpo + '/json/', true);
+      xhr.responseType = 'json';
+      botaoCep.disabled = true;
+      mostrarMensagem('Consultando o ViaCEP...', 'carregando');
+      xhr.onload = function () {
+        botaoCep.disabled = false;
+        const endereco = xhr.response;
+        if (xhr.status !== 200 || !endereco) { mostrarMensagem('Não foi possível consultar o CEP. Tente novamente.', 'erro'); return; }
+        if (endereco.erro) { mostrarMensagem('CEP não encontrado.', 'erro'); return; }
+        document.getElementById('logradouro').value = endereco.logradouro || '';
+        document.getElementById('bairro').value = endereco.bairro || '';
+        document.getElementById('cidade').value = endereco.localidade || '';
+        document.getElementById('estado').value = endereco.uf || '';
+        document.getElementById('numero').focus();
+        mostrarMensagem('Endereço preenchido com sucesso!', 'sucesso');
+      };
+      xhr.onerror = function () { botaoCep.disabled = false; mostrarMensagem('Erro de conexão ao consultar o CEP.', 'erro'); };
+      xhr.send();
+    }
+    botaoCep.addEventListener('click', buscarCep);
+    cep.addEventListener('blur', function () { if (this.value.replace(/\D/g, '').length === 8) buscarCep(); });
+    document.getElementById('inserir-palavra').addEventListener('click', inserirPalavra);
+    campoPalavra.addEventListener('keydown', function (evento) { if (evento.key === 'Enter') { evento.preventDefault(); inserirPalavra(); } });
+  </script>
+</body>
+</html>
+
+Exibindo cadastro-pessoal.html…
