@@ -1,0 +1,207 @@
+:root {
+    /* Cores Primárias e Destaques */
+    --cor-primaria: rgba(26, 44, 184, 0.8);
+    --cor-primaria-hover: rgba(19, 33, 141, 0.8);
+    --cor-foco: rgb(108, 116, 177);
+    --cor-secundaria: #4c5572;
+    --cor-terciaria: #D6E0FF;
+    --cor-quaternaria: #F0F4FF;
+
+
+    /* Superfícies e Fundos */
+    --cor-fundo-pagina: rgba(236, 236, 253, 0.6);
+    --cor-superficie: rgb(247, 247, 253);
+    --cor-superficie-hover: rgba(110, 115, 153, 0.15);
+    --cor-zebrado: #f2f2f2;
+
+    /* Bordas e Divisões */
+    --cor-borda: rgb(192, 192, 192);
+
+    /* Textos */
+    --cor-texto-claro: #ffffff;
+    --cor-texto-mutado: #777777;
+
+    /* Feedback */
+    --cor-sucesso: green;
+}
+
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: var(--cor-fundo-pagina);
+}
+
+h2 {
+    font-family: 'Lato', 'Courier New', Courier, monospace;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 300;
+    text-decoration: none;
+    font-size: 38px;
+    color: var(--cor-primaria);
+    margin-bottom: 50px;
+}
+
+/* ======= BOTÕES ===================================== */
+
+.btn-cadastrar {
+    background-color: var(--cor-primaria);
+    border: 0px solid var(--cor-texto-claro);
+    color: var(--cor-texto-claro);
+}
+
+.btn-cadastrar:hover {
+    background-color: var(--cor-primaria-hover);
+}
+
+.btn-cadastrar:active {
+    transform: scale(0.985);
+}
+
+#btn-listar {
+    background-color: var(--cor-superficie);
+    border: 1px solid var(--cor-primaria);
+    color: var(--cor-primaria);
+    width: 200px;
+}
+
+#btn-listar:hover {
+    background-color: var(--cor-superficie-hover);
+}
+
+#btn-listar:active {
+    transform: scale(0.985);
+}
+
+.btn-duplo {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0 10px 0;
+}
+
+.btn-duplo * {
+    align-items: center;
+    width: 100%;
+    height: 40px;
+    font-size: 15px;
+    font-weight: 600;
+    border-radius: 2px;
+}
+
+/* ======= FORMULÁRIO ===================================== */
+
+.form-box {
+    background-color: var(--cor-superficie);
+    width: 700px;
+    height: auto;
+    border-radius: 0px;
+    padding: 50px;
+    border: 8px solid var(--cor-primaria);
+}
+
+.form-items {
+    display: grid;
+    margin: 30px;
+}
+
+.form-items label {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--cor-texto-mutado);
+    margin-bottom: 4px;
+}
+
+.campo {
+    background-color: var(--cor-superficie);
+    padding: 12px 10px;
+    border: 2.5px solid var(--cor-borda);
+    margin-bottom: 20px;
+    border-radius: 2px;
+}
+
+.campo:focus {
+    border-color: var(--cor-foco);
+    outline: none;
+}
+
+.input-label:focus-within label {
+    color: var(--cor-foco);
+}
+
+.input-label {
+    display: flex;
+    flex-direction: column;
+}
+
+#mensagem {
+    font-size: medium;
+    font-weight: 600;
+    text-align: center;
+    color: var(--cor-sucesso);
+    padding: 0;
+    margin-top: 20px;
+}
+
+/* ======= TABELA ============================================== */
+
+#tabela-div {
+    /* display: none; */
+    margin: 30px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid var(--cor-borda);
+    text-align: center;
+    padding: 10px;
+}
+
+th {
+    background-color: var(--cor-primaria);
+    color: var(--cor-texto-claro);
+}
+
+tr:nth-child(even) {
+    background-color: var(--cor-zebrado);
+}
+
+/* ======= MENU ================================================ */
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 50px;
+    list-style-type: none;
+}
+
+.menu a {
+    text-decoration: none;
+    border: 2px solid var(--cor-terciaria);
+    border-radius: 5px;
+    padding: 15px 80px;
+    color: var(--cor-primaria);
+    background-color: var(--cor-quaternaria);
+    transition: all 0.2s ease;
+    display: block;
+    box-shadow: 1px 1px 5px #77777726;
+}
+
+.menu a:hover {
+    background-color: var(--cor-primaria-hover);
+    color: var(--cor-texto-claro);
+    transform: translateY(-2px);
+}

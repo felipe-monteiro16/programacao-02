@@ -64,18 +64,18 @@ h2 {
     transform: scale(0.985);
 }
 
-#btn-listar-alunos {
+#btn-listar {
     background-color: var(--cor-superficie);
     border: 1px solid var(--cor-primaria);
     color: var(--cor-primaria);
     width: 200px;
 }
 
-#btn-listar-alunos:hover {
+#btn-listar:hover {
     background-color: var(--cor-superficie-hover);
 }
 
-#btn-listar-alunos:active {
+#btn-listar:active {
     transform: scale(0.985);
 }
 
@@ -150,8 +150,8 @@ h2 {
 
 /* ======= TABELA ============================================== */
 
-#tabela-alunos {
-    display: none;
+#tabela-div {
+    /* display: none; */
     margin: 30px;
 }
 
@@ -181,7 +181,7 @@ tr:nth-child(even) {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 50px;
+    gap: 20px;
     padding: 0;
     margin: 0;
     margin-bottom: 50px;
@@ -195,10 +195,13 @@ tr:nth-child(even) {
     padding: 15px 80px;
     color: var(--cor-primaria);
     background-color: var(--cor-quaternaria);
+    transition: all 0.2s ease;
+    display: block;
     box-shadow: 1px 1px 5px #77777726;
 }
 
 .menu a:hover {
     background-color: var(--cor-primaria-hover);
     color: var(--cor-texto-claro);
+    transform: translateY(-2px);
 }
